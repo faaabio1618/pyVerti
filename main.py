@@ -63,7 +63,7 @@ class App:
         if not scene_list:
             if self.debug:
                 print("No scenes detected")
-            return [Scene(0, last_frame+1)]
+            return [Scene(0, last_frame + 1)]
         if self.debug:
             print([scene[0].frame_num for scene in scene_list])
         return [Scene(scene[0].frame_num, scene[1].frame_num) for scene in scene_list]
@@ -89,9 +89,10 @@ class App:
         self.write_to_file(steps)
         self.write_to_file_meta()
 
-    def retrieve_steps(self, scene_centers: list[CenteredScene]):
+    def retrieve_steps(self, scene_centers: list[CenteredScene]) -> list[list[tuple[int, int, int, int]]]:
         steps = []
         for scene in scene_centers:
+            scene_steps = []
             centers = scene.get_centers()
             total = len(centers)
             last_changed_frame = centers[0].get_frame_number()
@@ -112,14 +113,15 @@ class App:
                     center_step_x = (curr_x - last_changed_x) / delta_frames
                     for j in range(last_changed_frame, curr_n + 1):
                         last_changed_x += center_step_x
-                        steps.append((last_changed_x, 0, j, j))
+                        scene_steps.append((last_changed_x, 0, j, j))
                     last_changed_frame = curr_n + 1
                     last_changed_x = curr_x
                 i = i + 1
             end = centers[-1].get_frame_number()
-            if last_changed_frame < end:
+            if last_changed_frame <= end:
                 for i in range(last_changed_frame, end + 1):
-                    steps.append((curr_x, curr_y, i, i))
+                    scene_steps.append((curr_x, curr_y, i, i))
+            steps.append(scene_steps)
         return steps
 
     def smooth_steps(self, steps: list[tuple[int, int, int, int]]):
@@ -207,8 +209,10 @@ def main():
     vs.release()
     cv2.destroyAllWindows()
     steps = app.retrieve_steps(centered_frames)
-    steps = app.smooth_steps(steps)
-    app.write(steps)
+    result = []
+    for scene_steps in steps:
+        result.extend(app.smooth_steps(scene_steps))
+    app.write(result)
 
 
 if __name__ == "__main__":
