@@ -172,7 +172,7 @@ class App:
             file.write(
                 f"drawtext=fontfile=./AGENCYB.ttf:text='{title}':fontcolor=white:fontsize=(h/35):x=({width}-text_w)/2:y=({height}-text_h-{height}/30)\n,")
             file.write(
-                f"drawtext=fontfile=./AGENCYB.ttf:text='{subtitle}':fontcolor=white:fontsize=(h/55):x=({width}-text_w)/2:y=({height}-{height}/30),\n"
+                f"drawtext=fontfile=./AGENCYB.ttf:text='{subtitle}':fontcolor=white:fontsize=(h/55):x=({width}-text_w)/2:y=({height}-{height}/30+text_h-1),\n"
             )
             file.write(
                 f"drawtext=fontfile=./AGENCYB.ttf:text='{youtube_channel}':fontcolor=white:fontsize=(h/55):x=({width}-text_w)/2:y=({height}/30)\n")
@@ -208,9 +208,8 @@ def main():
     vs.set(cv2.CAP_PROP_POS_FRAMES, 0)
     vs.release()
     cv2.destroyAllWindows()
-    steps = app.retrieve_steps(centered_frames)
     result = []
-    for scene_steps in steps:
+    for scene_steps in app.retrieve_steps(centered_frames):
         result.extend(app.smooth_steps(scene_steps))
     app.write(result)
 
