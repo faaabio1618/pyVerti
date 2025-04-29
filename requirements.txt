@@ -2,5 +2,5 @@ imutils==0.5.4
 numpy==1.26.4
 scipy~=1.14.1
 opencv-contrib-python==4.10.0.82
-pytubefix==8.4.1
+pytubefix==8.12.0
 scenedetect[opencv]==0.6.5.2

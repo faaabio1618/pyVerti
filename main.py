@@ -154,9 +154,10 @@ class App:
             if title:
                 file.write(
                     f"drawtext=fontfile=./AGENCYB.ttf:text='{title}':fontcolor=white:fontsize=(h/35):x=({width}-text_w)/2:y=({height}-text_h-{height}/30),\n")
+            fifteen = height / 72
             if subtitle:
                 file.write(
-                    f"drawtext=fontfile=./AGENCYB.ttf:text='{subtitle}':fontcolor=white:fontsize=(h/55):x=({width}-text_w)/2:y=({height}+15-{height}/30),\n"
+                    f"drawtext=fontfile=./AGENCYB.ttf:text='{subtitle}':fontcolor=white:fontsize=(h/55):x=({width}-text_w)/2:y=({height}+{fifteen}-{height}/30),\n"
                 )
             if youtube_channel:
                 file.write(

@@ -30,6 +30,7 @@ class RectangleTracker:
         roi_found = False
         key = None
         cur_frame_number = 0
+        total_frames = self.total_frames
         # put vs at the beginning
         self.vs.set(cv2.CAP_PROP_POS_FRAMES, 0)
         while cur_frame_number < self.total_frames:
@@ -70,7 +71,7 @@ class RectangleTracker:
                             cv2.rectangle(resized_frame, prev_rectangle.get_point1_unscaled(),
                                           prev_rectangle.get_point2_unscaled(),
                                           (180, 180, 180), 2)
-                        cv2.putText(resized_frame, "Frame: {}".format(cur_frame_number), (10, 20),
+                        cv2.putText(resized_frame, "Frame: {}/{}".format(cur_frame_number, total_frames), (10, 20),
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
                         cv2.imshow(self.file, resized_frame)
                         key = cv2.waitKeyEx(0)

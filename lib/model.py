@@ -38,7 +38,7 @@ class ProgramArguments:
 
     def youtube_channel(self):
         try:
-            yt = YouTube(self.youtube_link)
+            yt = YouTube(self.youtube_link, "WEB")
             channel = Channel(yt.channel_url)
             return channel.vanity_url.split("www.")[1]
         except:

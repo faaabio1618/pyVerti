@@ -35,7 +35,7 @@ $CroppedVideoInput = "walks\$FilenameFromLink\${FileNameSafe}_cropped.txt"
 if (-Not (Test-Path -Path $InputPath))
 {
     Write-Output "Downloading video"
-    & yt-dlp.exe --quiet --progress $YouTubeLink -f "bestvideo/best" -o $InputPath --merge-output-format webm
+    & yt-dlp.exe $YouTubeLink -f "bestvideo*" -o $InputPath --merge-output-format webm --cookies-from-browser "firefox"
 }
 else
 {
