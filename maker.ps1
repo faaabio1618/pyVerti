@@ -1,22 +1,24 @@
-
-# Parse argumentsS
-param (
-    [Parameter(Mandatory=$true)][string]$YouTubeLink,
-    [Parameter(Mandatory=$true)][string]$Start,
-    [Parameter(Mandatory=$true)][string]$Stop,
-    [Parameter(Mandatory=$true)][string]$Title,
-    [Parameter(Mandatory=$true)][string]$Subtitle,
-    [Parameter(Mandatory=$true)][string]$Description
-)
-
-# Check for unknown options
-$args | ForEach-Object {
-    if ($_ -notmatch '^-[a-z]=')
-    {
-        Write-Error "Unknown option $_"
-        exit 1
-    }
+$YouTubeLink = Read-Host "Enter the YouTube link"
+while ($YouTubeLink -notmatch '^(https?://)?(www\.)?(youtube\.com|youtu\.?be)/.+$')
+{
+    Write-Host "Invalid YouTube link. Please enter a valid link."
+    $YouTubeLink = Read-Host "Enter the YouTube link"
 }
+$Start = Read-Host "Enter the start time (e.g. 00:00:00)"
+while ($Start -notmatch '^\d{2}:\d{2}:\d{2}$')
+{
+    Write-Host "Invalid start time. Please enter a valid time in the format HH:MM:SS."
+    $Start = Read-Host "Enter the start time (e.g. 00:00:00)"
+}
+$Stop = Read-Host "Enter the duration of the video (e.g. 00:00:00)"
+while ($Stop -notmatch '^\d{2}:\d{2}:\d{2}$')
+{
+    Write-Host "Invalid stop time. Please enter a valid time in the format HH:MM:SS."
+    $Stop = Read-Host "Enter the duration of the video (e.g. 00:00:00)"
+}
+$Title = Read-Host "Enter the title"
+$Subtitle = Read-Host "Enter the subtitle"
+$Description = Read-Host "Enter the description"
 
 # Compute derived variables
 $FileName = "$Title $Description"

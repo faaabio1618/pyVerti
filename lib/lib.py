@@ -99,7 +99,7 @@ class RectangleTracker:
                     cv2.rectangle(resized_frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
                     rectangles[cur_frame_number] = Rectangle(x, x + w, y, y + h, cur_frame_number, self.ratio)
             # add text
-            cv2.putText(resized_frame, "Frame: {}".format(cur_frame_number), (10, 20),
+            cv2.putText(resized_frame, "Frame: {}/{}".format(cur_frame_number, total_frames), (10, 20),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
             cv2.imshow(self.file, resized_frame)
             key = cv2.waitKey(1) & 0xFF
